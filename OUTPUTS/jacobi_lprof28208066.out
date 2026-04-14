@@ -1,0 +1,108 @@
+No GPU on this node, CUDA module not loaded
+building_id, mean_temp, std_temp, pct_above_18, pct_below_15
+10000, 14.01233878811275, 6.367431059312565, 30.941014791508444, 55.542295034537624
+10009, 11.000135812436373, 5.811144379826625, 16.6712734948236, 74.9723590310584
+10014, 14.744169941950119, 7.037733284673848, 38.26367541377415, 52.80837116508215
+10019, 14.735524480624482, 7.030325006703675, 38.14915412864569, 52.92926826787113
+10029, 10.616037322820358, 6.317331938274926, 18.25563221896085, 74.51301795448481
+10031, 12.507072852890545, 6.278432089100354, 24.044722033998173, 66.39513301711693
+10051, 13.289039951277402, 5.999085063388632, 25.97693550756574, 62.859923608050536
+10053, 11.366493551285709, 6.26121798185875, 19.9510754583921, 72.41052538787024
+10056, 14.220114507861702, 6.179461157398302, 31.763454814173965, 57.06174975667784
+10064, 12.71696893739585, 6.964227784263683, 28.79137124461432, 62.75688345539249
+10075, 15.156939199079357, 6.44052034037085, 39.12088154756647, 47.45605511880576
+10079, 15.094353507626135, 7.313911268349323, 41.90001451870493, 49.44974108309539
+10080, 15.777740694240359, 7.280585752157965, 46.365765006711015, 44.711034476002
+10082, 16.465720758630678, 6.713345052234242, 48.64349722630506, 40.56137689061685
+10083, 15.639247995421403, 7.120808056609733, 44.855518923515284, 45.886354482120744
+Wrote profile results to 'OUTPUTS/jacobi_orignal.lprof'
+Inspect results with:
+python -m line_profiler -rmt OUTPUTS/jacobi_orignal.lprof
+Timer unit: 1e-06 s
+
+Total time: 259.269 s
+File: PYSCRIPTS/jacobi_profilling.py
+Function: jacobi at line 15
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+    15                                           @profile
+    16                                           def jacobi(u, interior_mask, max_iter, atol=1e-6):
+    17        15       8742.6    582.8      0.0      u = np.copy(u)
+    18                                           
+    19     85248     118695.2      1.4      0.0      for i in range(max_iter):
+    20                                                   # Compute average of left, right, up and down neighbors, see eq. (1)
+    21     85248  155367810.0   1822.5     59.9          u_new = 0.25 * (u[1:-1, :-2] + u[1:-1, 2:] + u[:-2, 1:-1] + u[2:, 1:-1])
+    22     85248   23819673.9    279.4      9.2          u_new_interior = u_new[interior_mask]
+    23     85248   54079134.7    634.4     20.9          delta = np.abs(u[1:-1, 1:-1][interior_mask] - u_new_interior).max()
+    24     85248   25619593.0    300.5      9.9          u[1:-1, 1:-1][interior_mask] = u_new_interior
+    25                                           
+    26     85248     255353.3      3.0      0.1          if delta < atol:
+    27        15         30.0      2.0      0.0              break
+    28        15         43.0      2.9      0.0      return u
+
+259.27 seconds - PYSCRIPTS/jacobi_profilling.py:15 - jacobi
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@hpc.dtu.dk>
+Subject: Job 28208066: <jacobi_lprof.py> in cluster <dcc> Done
+
+Job <jacobi_lprof.py> was submitted from host <n-62-27-18> by user <s224363> in cluster <dcc> at Tue Apr 14 16:07:20 2026
+Job was executed on host(s) <n-62-11-61>, in queue <hpc>, as user <s224363> in cluster <dcc> at Tue Apr 14 16:07:20 2026
+</zhome/ce/3/186843> was used as the home directory.
+</zhome/ce/3/186843/Documents/02613_PyHPC/02613_HPC_Project> was used as the working directory.
+Started at Tue Apr 14 16:07:20 2026
+Terminated at Tue Apr 14 16:11:42 2026
+Results reported at Tue Apr 14 16:11:42 2026
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/bash
+
+#BSUB -J jacobi_lprof.py
+#BSUB -o OUTPUTS/jacobi_lprof%J.out
+#BSUB -e OUTPUTS/jacobi_lprof%J.err
+
+#BSUB -q hpc
+#BSUB -n 1
+#BSUB -W 00:10
+#BSUB -R "span[hosts=1]"
+#BSUB -R "rusage[mem=5GB]"
+#BSUB -R "select[model==XeonGold6226R]"
+
+# Notifications
+##BSUB -u <mail>
+##BSUB -B
+##BSUB -N
+
+source SHSCRIPTS/init_02613.sh
+kernprof -l -o OUTPUTS/jacobi_orignal.lprof PYSCRIPTS/jacobi_profilling.py 15
+python -m line_profiler -rmt OUTPUTS/jacobi_orignal.lprof
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   260.68 sec.
+    Max Memory :                                 94 MB
+    Average Memory :                             89.50 MB
+    Total Requested Memory :                     5120.00 MB
+    Delta Memory :                               5026.00 MB
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   262 sec.
+    Turnaround time :                            262 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <OUTPUTS/jacobi_lprof28208066.err> for stderr output of this job.
+
