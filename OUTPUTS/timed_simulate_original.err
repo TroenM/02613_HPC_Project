@@ -1,0 +1,14 @@
+
+Total run time using N = 20
+
+real	3m1.011s
+user	3m0.331s
+sys	0m0.127s
+
+AVG times per floor
+real    0m12.067s
+user    0m12.022s
+
+Expected time for all 4571 floors
+real    15h19m20.085s
+user    15h15m52.867s

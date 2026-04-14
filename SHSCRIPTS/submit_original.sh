@@ -17,4 +17,4 @@
 ##BSUB -N
 
 source SHSCRIPTS/init_02613.sh
-python -u PYSCRIPTS/simulate.py
+time python PYSCRIPTS/simulate_original.py 15
