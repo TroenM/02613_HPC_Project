@@ -2,7 +2,7 @@ from os.path import join
 import sys
 
 import numpy as np
-
+from plotting import plot_temperature_distribution
 
 def load_data(load_dir, bid):
     SIZE = 512
@@ -68,7 +68,9 @@ if __name__ == '__main__':
     all_u = np.empty_like(all_u0)
     for i, (u0, interior_mask) in enumerate(zip(all_u0, all_interior_mask)):
         u = jacobi(u0, interior_mask, MAX_ITER, ABS_TOL)
+        plot_temperature_distribution(u, building_ids[i])
         all_u[i] = u
+
 
 # Print summary statistics in CSV format
     stat_keys = ['mean_temp', 'std_temp', 'pct_above_18', 'pct_below_15']
