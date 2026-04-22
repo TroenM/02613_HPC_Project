@@ -75,7 +75,6 @@ if __name__ == '__main__':
 
 
     n_proc = int(sys.argv[2]) # Number of processes
-    chunk_size = N//n_proc + ((N%n_proc) != 0) # Number of floors per process
 
     t_start = perf_counter()
     tasks = [(all_u0[i], all_interior_mask[i], MAX_ITER, ABS_TOL) for i in range(N)]

@@ -12,4 +12,4 @@
 #BSUB -W 00:30
 
 source SHSCRIPTS/init_02613.sh
-python PYSCRIPTS/static_parallel.py 100 $LSB_JOBINDEX >> OUTPUTS/Timing/static_times.csv
+python PYSCRIPTS/static_parallel.py 100 $LSB_JOBINDEX >> OUTPUTS/TIMING/static_times.csv
