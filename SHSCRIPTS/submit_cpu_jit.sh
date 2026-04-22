@@ -1,9 +1,8 @@
 #!/bin/bash
 
-#BSUB -J simulate.py
-#BSUB -o OUTPUTS/simulate%J.out
-#BSUB -e OUTPUTS/simulate%J.err
-
+#BSUB -J jit.py
+#BSUB -o OUTPUTS/jit_simulate%J.out
+#BSUB -e OUTPUTS/jit_simulate%J.err
 #BSUB -q hpc
 #BSUB -n 1
 #BSUB -W 00:10
