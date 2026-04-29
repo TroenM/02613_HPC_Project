@@ -1,0 +1,78 @@
+No GPU on this node, CUDA module not loaded
+building_id, mean_temp, std_temp, pct_above_18, pct_below_15
+10000, 14.014429045743501, 6.367526498176673, 30.95005605583885, 55.509746482948174
+10009, 11.005657766426127, 5.810154731039187, 16.68006834857775, 74.94848728515429
+10014, 14.751924504949052, 7.033246958573728, 38.283015410924044, 52.78088801123756
+10019, 14.743706641786371, 7.025611980430939, 38.16746523433129, 52.90180160934273
+10029, 10.619289931608773, 6.314873101878867, 18.25563221896085, 74.51301795448481
+10031, 12.513178863475895, 6.277256833355242, 24.065344842824736, 66.36419880387709
+10051, 13.28955814966487, 5.999055249820978, 25.97693550756574, 62.85625091817247
+10053, 11.37047780046407, 6.260128104463442, 19.953279266572636, 72.40391396332863
+10056, 14.220753871990556, 6.179434290539208, 31.767059586893048, 57.05634259759922
+10064, 12.723476403675553, 6.964215943332553, 28.821521314153998, 62.72478822007606
+10075, 15.166230737933624, 6.441752556323345, 39.20810882430881, 47.36330712834555
+10079, 15.100198003690517, 7.312182135059289, 41.920340705609064, 49.411024536611336
+10080, 15.783509517901852, 7.278647520971813, 46.392217182157516, 44.6845823005555
+10082, 16.47391175831698, 6.709807700074736, 48.685221184391445, 40.51491157365701
+10083, 15.640788576769664, 7.120730340785142, 44.86297793624036, 45.883370877030714
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@hpc.dtu.dk>
+Subject: Job 28255995: <jit.py> in cluster <dcc> Done
+
+Job <jit.py> was submitted from host <n-62-30-5> by user <s224680> in cluster <dcc> at Wed Apr 22 14:43:20 2026
+Job was executed on host(s) <n-62-11-51>, in queue <hpc>, as user <s224680> in cluster <dcc> at Wed Apr 22 14:43:23 2026
+</zhome/a3/6/187682> was used as the home directory.
+</zhome/a3/6/187682/Documents/02613_HPC_Project> was used as the working directory.
+Started at Wed Apr 22 14:43:23 2026
+Terminated at Wed Apr 22 14:44:26 2026
+Results reported at Wed Apr 22 14:44:26 2026
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/bash
+
+#BSUB -J jit.py
+#BSUB -o OUTPUTS/jit_simulate%J.out
+#BSUB -e OUTPUTS/jit_simulate%J.err
+#BSUB -q hpc
+#BSUB -n 1
+#BSUB -W 00:10
+#BSUB -R "span[hosts=1]"
+#BSUB -R "rusage[mem=5GB]"
+#BSUB -R "select[model==XeonGold6226R]"
+
+# Notifications
+##BSUB -u <mail>
+##BSUB -B
+##BSUB -N
+
+source SHSCRIPTS/init_02613.sh
+time python PYSCRIPTS/cpu_jit.py 15
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   61.62 sec.
+    Max Memory :                                 200 MB
+    Average Memory :                             200.00 MB
+    Total Requested Memory :                     5120.00 MB
+    Delta Memory :                               4920.00 MB
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   63 sec.
+    Turnaround time :                            66 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <OUTPUTS/jit_simulate28255995.err> for stderr output of this job.
+
