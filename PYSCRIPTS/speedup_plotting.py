@@ -11,9 +11,9 @@ def speed_up_plot(filename):
 
     data = data[~np.isnan(data).any(axis=1)]
 
-    T1 = 2017.04
+    T1 = 1
     processes = data[:, 0]
-    times = T1 / data[:, 1]
+    times = data[:, 1]
 
     # order = np.argsort(processes)
     # processes = processes[order]
@@ -32,6 +32,9 @@ def speed_up_plot(filename):
 if __name__ == "__main__":
     filename = sys.argv[1]
     fig = speed_up_plot(filename)
-    fig.savefig(join("PLOTS/" + "speedups", f'static_speedup_plot.png'))
-    plt.close(fig)
+    # fig.savefig(join("PLOTS/" + "speedups", f'static_speedup_plot.png'))
+    # fig.show()
+    plt.show()
+    speed_up_plot(sys.argv[2])
+    plt.show()
     
