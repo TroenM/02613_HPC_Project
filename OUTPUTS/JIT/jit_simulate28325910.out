@@ -1,0 +1,63 @@
+No GPU on this node, CUDA module not loaded
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@hpc.dtu.dk>
+Subject: Job 28325910: <jit.py> in cluster <dcc> Exited
+
+Job <jit.py> was submitted from host <gbarlogin1> by user <s224680> in cluster <dcc> at Wed Apr 29 13:59:22 2026
+Job was executed on host(s) <n-62-11-60>, in queue <hpc>, as user <s224680> in cluster <dcc> at Wed Apr 29 13:59:24 2026
+</zhome/a3/6/187682> was used as the home directory.
+</zhome/a3/6/187682/Documents/02613_HPC_Project> was used as the working directory.
+Started at Wed Apr 29 13:59:24 2026
+Terminated at Wed Apr 29 14:02:53 2026
+Results reported at Wed Apr 29 14:02:53 2026
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/bash
+
+#BSUB -J jit.py
+#BSUB -o OUTPUTS/JIT/jit_simulate%J.out
+#BSUB -e OUTPUTS/JIT/jit_simulate%J.err
+#BSUB -q hpc
+#BSUB -n 1
+#BSUB -W 00:10
+#BSUB -R "span[hosts=1]"
+#BSUB -R "rusage[mem=5GB]"
+#BSUB -R "select[model==XeonGold6226R]"
+
+# Notifications
+##BSUB -u <mail>
+##BSUB -B
+##BSUB -N
+
+source SHSCRIPTS/init_02613.sh
+time python PYSCRIPTS/cpu_jit.py 120
+------------------------------------------------------------
+
+TERM_OWNER: job killed by owner.
+Exited with exit code 130.
+
+Resource usage summary:
+
+    CPU time :                                   208.46 sec.
+    Max Memory :                                 490 MB
+    Average Memory :                             453.33 MB
+    Total Requested Memory :                     5120.00 MB
+    Delta Memory :                               4630.00 MB
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   209 sec.
+    Turnaround time :                            211 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <OUTPUTS/JIT/jit_simulate28325910.err> for stderr output of this job.
+

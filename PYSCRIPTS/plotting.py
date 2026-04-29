@@ -25,6 +25,7 @@ def plot_mask_and_temperature(u: np.ndarray, interior_mask: np.ndarray, bid: str
 
     plt.tight_layout()
     plt.savefig(join("PLOTS/" + plot_subdir, f'{bid}_temperature_distribution.png'))
+    plt.close()
     
 
 def plot_temperature_distribution(u, bid, plot_subdir='temperature_distributions/'):
@@ -40,6 +41,7 @@ def plot_temperature_distribution(u, bid, plot_subdir='temperature_distributions
     cbar.set_label('Temperature (°C)')
     plt.tight_layout()
     plt.savefig(join("PLOTS/" + plot_subdir, f'{bid}_temperature_distribution.png')) 
+    plt.close()
 
 if __name__ == '__main__':
     from simulate_original import load_data    
