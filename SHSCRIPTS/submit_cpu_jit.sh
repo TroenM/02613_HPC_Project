@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #BSUB -J jit.py
-#BSUB -o OUTPUTS/jit_simulate%J.out
-#BSUB -e OUTPUTS/jit_simulate%J.err
+#BSUB -o OUTPUTS/JIT/jit_simulate%J.out
+#BSUB -e OUTPUTS/JIT/jit_simulate%J.err
 #BSUB -q hpc
 #BSUB -n 1
 #BSUB -W 00:10
@@ -16,4 +16,4 @@
 ##BSUB -N
 
 source SHSCRIPTS/init_02613.sh
-time python PYSCRIPTS/cpu_jit.py 15
+time python PYSCRIPTS/cpu_jit.py 120
