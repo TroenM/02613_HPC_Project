@@ -69,7 +69,7 @@ if __name__ == '__main__':
     all_u = np.empty_like(all_u0)
     for i, (u0, interior_mask) in enumerate(zip(all_u0, all_interior_mask)):
         u = jacobi(u0, interior_mask, MAX_ITER, ABS_TOL)
-        plot_temperature_distribution(u, building_ids[i])
+        # plot_temperature_distribution(u, building_ids[i])
         all_u[i] = u
     t_end = perf_counter() - t_start
     print(f"Total execution time: {t_end:.2f} seconds")
