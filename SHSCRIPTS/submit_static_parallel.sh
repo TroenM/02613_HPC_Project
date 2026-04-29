@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#BSUB -J static_parallel[2-10]
+#BSUB -J static_parallel[1-10]
 #BSUB -o OUTPUTS/STATIC_PARALLEL/static_parallel_%I.out
 #BSUB -e OUTPUTS/STATIC_PARALLEL/static_parallel_%I.err
 

@@ -1,20 +1,20 @@
 #!/bin/bash
 
-#BSUB -J simulate.py
-#BSUB -o OUTPUTS/simulate%J.out
-#BSUB -e OUTPUTS/simulate%J.err
+#BSUB -J simulate_orig_100
+#BSUB -o OUTPUTS/simulate_orig_100%J.out
+#BSUB -e OUTPUTS/simulate_orig_100%J.err
 
 #BSUB -q hpc
 #BSUB -n 1
-#BSUB -W 00:10
+#BSUB -W 00:40
 #BSUB -R "span[hosts=1]"
 #BSUB -R "rusage[mem=5GB]"
 #BSUB -R "select[model==XeonGold6226R]"
 
 # Notifications
 ##BSUB -u <mail>
-##BSUB -B
-##BSUB -N
+#BSUB -B
+#BSUB -N
 
 source SHSCRIPTS/init_02613.sh
-time python PYSCRIPTS/simulate_original.py 15
+python -u PYSCRIPTS/simulate_original.py 100
