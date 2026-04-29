@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#BSUB -J dynamic_parallel[2-10]
+#BSUB -J dynamic_parallel[1-10]
 #BSUB -o OUTPUTS/DYNAMIC_PARALLEL/dynamic_parallel_%I.out
 #BSUB -e OUTPUTS/DYNAMIC_PARALLEL/dynamic_parallel_%I.err
 
