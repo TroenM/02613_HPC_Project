@@ -2,15 +2,15 @@ No GPU on this node, CUDA module not loaded
 
 ------------------------------------------------------------
 Sender: LSF System <lsfadmin@hpc.dtu.dk>
-Subject: Job 28260327[3]: <static_parallel[2-10]> in cluster <dcc> Done
+Subject: Job 28322289[3]: <static_parallel[1-10]> in cluster <dcc> Done
 
-Job <static_parallel[2-10]> was submitted from host <n-62-27-17> by user <s224363> in cluster <dcc> at Wed Apr 22 19:48:41 2026
-Job was executed on host(s) <10*n-62-11-63>, in queue <hpc>, as user <s224363> in cluster <dcc> at Wed Apr 22 19:48:44 2026
+Job <static_parallel[1-10]> was submitted from host <n-62-12-19> by user <s224363> in cluster <dcc> at Wed Apr 29 10:02:15 2026
+Job was executed on host(s) <10*n-62-12-5>, in queue <hpc>, as user <s224363> in cluster <dcc> at Wed Apr 29 10:14:05 2026
 </zhome/ce/3/186843> was used as the home directory.
 </zhome/ce/3/186843/Documents/02613_PyHPC/02613_HPC_Project> was used as the working directory.
-Started at Wed Apr 22 19:48:44 2026
-Terminated at Wed Apr 22 19:59:51 2026
-Results reported at Wed Apr 22 19:59:51 2026
+Started at Wed Apr 29 10:14:05 2026
+Terminated at Wed Apr 29 10:24:23 2026
+Results reported at Wed Apr 29 10:24:23 2026
 
 Your job looked like:
 
@@ -18,7 +18,7 @@ Your job looked like:
 # LSBATCH: User input
 #!/bin/bash
 
-#BSUB -J static_parallel[2-10]
+#BSUB -J static_parallel[1-10]
 #BSUB -o OUTPUTS/STATIC_PARALLEL/static_parallel_%I.out
 #BSUB -e OUTPUTS/STATIC_PARALLEL/static_parallel_%I.err
 
@@ -30,23 +30,23 @@ Your job looked like:
 #BSUB -W 00:30
 
 source SHSCRIPTS/init_02613.sh
-python PYSCRIPTS/static_parallel.py 100 $LSB_JOBINDEX >> OUTPUTS/Timing/static_times.csv
+python PYSCRIPTS/static_parallel.py 100 $LSB_JOBINDEX >> OUTPUTS/TIMING/static_times.csv
 ------------------------------------------------------------
 
 Successfully completed.
 
 Resource usage summary:
 
-    CPU time :                                   1678.22 sec.
-    Max Memory :                                 692 MB
-    Average Memory :                             648.33 MB
+    CPU time :                                   1615.08 sec.
+    Max Memory :                                 684 MB
+    Average Memory :                             650.57 MB
     Total Requested Memory :                     10240.00 MB
-    Delta Memory :                               9548.00 MB
+    Delta Memory :                               9556.00 MB
     Max Swap :                                   -
     Max Processes :                              7
     Max Threads :                                11
-    Run time :                                   666 sec.
-    Turnaround time :                            670 sec.
+    Run time :                                   618 sec.
+    Turnaround time :                            1328 sec.
 
 The output (if any) is above this job summary.
 

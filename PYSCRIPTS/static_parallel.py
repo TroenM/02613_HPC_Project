@@ -56,6 +56,7 @@ def jacobi_chunk(u0_chunk, interior_mask_chunk, max_iter, atol = 1e-6):
 
 
 if __name__ == '__main__':
+    t_start = perf_counter()
     # Load data
     LOAD_DIR = '/dtu/projects/02613_2025/data/modified_swiss_dwellings/'
     with open(join(LOAD_DIR, 'building_ids.txt'), 'r') as f:
@@ -83,7 +84,6 @@ if __name__ == '__main__':
     n_proc = int(sys.argv[2]) # Number of processes
     chunk_size = N//n_proc + ((N%n_proc) != 0) # Number of floors per process
 
-    t_start = perf_counter()
     with mp.Pool(n_proc) as pool:
         tasks = []
         for b in range(0,N,chunk_size):

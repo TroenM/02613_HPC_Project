@@ -16,7 +16,8 @@ def load_data(load_dir, bid):
 
 @jit(nopython=True)
 def jacobi(u, interior_mask, max_iter, atol=1e-6):
-    u = u.copy()
+    u_old = u.copy()
+    u_new = u.copy()
     nx, ny = u.shape
 
     for it in range(max_iter):
@@ -26,20 +27,24 @@ def jacobi(u, interior_mask, max_iter, atol=1e-6):
             for j in range(1, ny-1):
                 if interior_mask[i-1, j-1]:
                     new_val = 0.25 * (
-                        u[i, j-1] + u[i, j+1] +
-                        u[i-1, j] + u[i+1, j]
+                        u_old[i, j-1] + u_old[i, j+1] +
+                        u_old[i-1, j] + u_old[i+1, j]
                     )
 
-                    diff = abs(u[i, j] - new_val)
+                    diff = abs(u_old[i, j] - new_val)
                     if diff > delta:
                         delta = diff
 
-                    u[i, j] = new_val
+                    u_new[i, j] = new_val
+
+        tmp = u_old
+        u_old = u_new # the newly computed u becomes the old
+        u_new = tmp # the structure of the old is used for the next iteration
 
         if delta < atol:
             break
 
-    return u
+    return u_old
 
 
 def summary_stats(u, interior_mask):

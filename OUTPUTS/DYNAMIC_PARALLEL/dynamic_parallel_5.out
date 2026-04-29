@@ -2,15 +2,15 @@ No GPU on this node, CUDA module not loaded
 
 ------------------------------------------------------------
 Sender: LSF System <lsfadmin@hpc.dtu.dk>
-Subject: Job 28260726[5]: <dynamic_parallel[2-10]> in cluster <dcc> Done
+Subject: Job 28322307[5]: <dynamic_parallel[1-10]> in cluster <dcc> Done
 
-Job <dynamic_parallel[2-10]> was submitted from host <n-62-27-17> by user <s224363> in cluster <dcc> at Wed Apr 22 20:16:29 2026
-Job was executed on host(s) <10*n-62-11-68>, in queue <hpc>, as user <s224363> in cluster <dcc> at Wed Apr 22 20:16:32 2026
+Job <dynamic_parallel[1-10]> was submitted from host <n-62-12-19> by user <s224363> in cluster <dcc> at Wed Apr 29 10:02:25 2026
+Job was executed on host(s) <10*n-62-11-64>, in queue <hpc>, as user <s224363> in cluster <dcc> at Wed Apr 29 10:34:35 2026
 </zhome/ce/3/186843> was used as the home directory.
 </zhome/ce/3/186843/Documents/02613_PyHPC/02613_HPC_Project> was used as the working directory.
-Started at Wed Apr 22 20:16:32 2026
-Terminated at Wed Apr 22 20:23:33 2026
-Results reported at Wed Apr 22 20:23:33 2026
+Started at Wed Apr 29 10:34:35 2026
+Terminated at Wed Apr 29 10:40:46 2026
+Results reported at Wed Apr 29 10:40:46 2026
 
 Your job looked like:
 
@@ -18,7 +18,7 @@ Your job looked like:
 # LSBATCH: User input
 #!/bin/bash
 
-#BSUB -J dynamic_parallel[2-10]
+#BSUB -J dynamic_parallel[1-10]
 #BSUB -o OUTPUTS/DYNAMIC_PARALLEL/dynamic_parallel_%I.out
 #BSUB -e OUTPUTS/DYNAMIC_PARALLEL/dynamic_parallel_%I.err
 
@@ -37,16 +37,16 @@ Successfully completed.
 
 Resource usage summary:
 
-    CPU time :                                   2020.07 sec.
-    Max Memory :                                 539 MB
-    Average Memory :                             481.60 MB
+    CPU time :                                   1783.27 sec.
+    Max Memory :                                 523 MB
+    Average Memory :                             474.75 MB
     Total Requested Memory :                     10240.00 MB
-    Delta Memory :                               9701.00 MB
+    Delta Memory :                               9717.00 MB
     Max Swap :                                   -
     Max Processes :                              9
     Max Threads :                                13
-    Run time :                                   421 sec.
-    Turnaround time :                            424 sec.
+    Run time :                                   371 sec.
+    Turnaround time :                            2301 sec.
 
 The output (if any) is above this job summary.
 

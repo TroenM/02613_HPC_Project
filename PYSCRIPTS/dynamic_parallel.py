@@ -50,6 +50,7 @@ def worker_jacobi(tasks):
 
 
 if __name__ == '__main__':
+    t_start = perf_counter()
     # Load data
     LOAD_DIR = '/dtu/projects/02613_2025/data/modified_swiss_dwellings/'
     with open(join(LOAD_DIR, 'building_ids.txt'), 'r') as f:
@@ -76,7 +77,6 @@ if __name__ == '__main__':
 
     n_proc = int(sys.argv[2]) # Number of processes
 
-    t_start = perf_counter()
     tasks = [(all_u0[i], all_interior_mask[i], MAX_ITER, ABS_TOL) for i in range(N)]
     with mp.Pool(n_proc) as pool:
         result = list(pool.imap_unordered(worker_jacobi, tasks, chunksize=1))
