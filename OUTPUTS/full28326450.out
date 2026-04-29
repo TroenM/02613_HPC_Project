@@ -1,0 +1,61 @@
+Total execution time: 64.21 seconds
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@hpc.dtu.dk>
+Subject: Job 28326450: <full> in cluster <dcc> Done
+
+Job <full> was submitted from host <n-62-12-19> by user <s224363> in cluster <dcc> at Wed Apr 29 15:24:33 2026
+Job was executed on host(s) <8*n-62-18-13>, in queue <c02613>, as user <s224363> in cluster <dcc> at Wed Apr 29 15:25:01 2026
+</zhome/ce/3/186843> was used as the home directory.
+</zhome/ce/3/186843/Documents/02613_PyHPC/02613_HPC_Project> was used as the working directory.
+Started at Wed Apr 29 15:25:01 2026
+Terminated at Wed Apr 29 15:26:09 2026
+Results reported at Wed Apr 29 15:26:09 2026
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#bin/bash.sh
+
+#BSUB -J full
+#BSUB -o ./OUTPUTS/full%J.out
+#BSUB -e ./OUTPUTS/full%J.err
+
+#BSUB -q c02613
+#BSUB -n 8
+#BSUB -R "span[hosts=1]"
+#BSUB -R "rusage[mem=1GB]"
+#BSUB -gpu "num=1:mode=exclusive_process"
+
+#BSUB -W 00:10
+
+source ../init_02613.sh
+
+# python -u PYSCRIPTS/cuda_kernel_initial.py 100 >> OUTPUTS/full_stats.csv
+python -u PYSCRIPTS/cuda_kernel.py 100
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   66.06 sec.
+    Max Memory :                                 518 MB
+    Average Memory :                             470.67 MB
+    Total Requested Memory :                     8192.00 MB
+    Delta Memory :                               7674.00 MB
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                10
+    Run time :                                   68 sec.
+    Turnaround time :                            96 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <./OUTPUTS/full28326450.err> for stderr output of this job.
+

@@ -14,21 +14,7 @@ def load_data(load_dir, bid):
     return u, interior_mask
 
 @cuda.jit
-def single_jacobi_kernel(u, u_new, interior_mask, delta_array):
-    # Offset indices to skip the 1-pixel boundary
-    i, j = cuda.grid(2)
-    
-    # Only compute relevant points
-    if 1 <= i < u.shape[0] - 1 and 1 <= j < u.shape[1] - 1 and interior_mask[i-1, j-1]:
-        # Jacobi Stencil (Assuming no interior points are also boundary points)
-        u_new[i, j] = 0.25 * (u[i, j-1] + u[i, j+1] + u[i-1, j] + u[i+1, j])
-    else:
-        u_new[i, j] = u[i, j]
-    
-    delta_array[i, j] = abs(u[i, j] - u_new[i, j])  # Store delta for convergence check
-
-@cuda.jit
-def noif_jacobi_kernel(u, u_new, interior_mask, delta_array):
+def noif_jacobi_kernel(u, u_new, interior_mask):
     i, j = cuda.grid(2)
 
     # Using is_interior as (0 or 1) to avoid branching and avoids boundary checks
@@ -37,7 +23,6 @@ def noif_jacobi_kernel(u, u_new, interior_mask, delta_array):
                       u[i, (j+is_interior)] + 
                       u[(i-is_interior), j] + 
                       u[(i+is_interior), j])
-    delta_array[i, j] = abs(u[i, j] - u_new[i, j]) 
 
 
 def run_jacobi(u, u_new, interior_mask, max_iter, atol):
@@ -48,20 +33,13 @@ def run_jacobi(u, u_new, interior_mask, max_iter, atol):
 
     u_d = cuda.to_device(u)
     u_new_d = cuda.to_device(u_new)
-    delta_array_d = cuda.device_array_like(u)
     interior_mask_d = cuda.to_device(interior_mask)
 
     # Run the kernel
     for i in range(max_iter):
-        noif_jacobi_kernel[bpg, tpb](u_d, u_new_d, interior_mask_d, delta_array_d)
+        noif_jacobi_kernel[bpg, tpb](u_d, u_new_d, interior_mask_d)
         cuda.synchronize()  # Ensure kernel has finished before checking for convergence
         u_new_d, u_d = u_d, u_new_d  # Swap references for next iteration
-
-        if (i + 1) % 1000 == 0:  # Check for convergence every 1000 iterations
-            delta_array = delta_array_d.copy_to_host()
-            max_delta = delta_array.max()
-            if max_delta < atol:
-                break
 
     return u_d.copy_to_host(u)  # Copy final result back to host
 
@@ -108,7 +86,6 @@ if __name__ == '__main__':
     for i, (u0, interior_mask) in enumerate(zip(all_u0, all_interior_mask)):
         u = run_jacobi(u0, np.empty_like(u0), interior_mask, MAX_ITER, ABS_TOL)
         all_u[i] = u
-    
     print(f"Total execution time: {perf_counter() - t_start:.2f} seconds")
 
 # Print summary statistics in CSV format
