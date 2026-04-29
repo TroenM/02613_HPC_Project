@@ -1,0 +1,58 @@
+No GPU on this node, CUDA module not loaded
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@hpc.dtu.dk>
+Subject: Job 28260726[10]: <dynamic_parallel[2-10]> in cluster <dcc> Done
+
+Job <dynamic_parallel[2-10]> was submitted from host <n-62-27-17> by user <s224363> in cluster <dcc> at Wed Apr 22 20:16:29 2026
+Job was executed on host(s) <10*n-62-12-3>, in queue <hpc>, as user <s224363> in cluster <dcc> at Wed Apr 22 20:21:03 2026
+</zhome/ce/3/186843> was used as the home directory.
+</zhome/ce/3/186843/Documents/02613_PyHPC/02613_HPC_Project> was used as the working directory.
+Started at Wed Apr 22 20:21:03 2026
+Terminated at Wed Apr 22 20:24:48 2026
+Results reported at Wed Apr 22 20:24:48 2026
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/bash
+
+#BSUB -J dynamic_parallel[2-10]
+#BSUB -o OUTPUTS/DYNAMIC_PARALLEL/dynamic_parallel_%I.out
+#BSUB -e OUTPUTS/DYNAMIC_PARALLEL/dynamic_parallel_%I.err
+
+#BSUB -q hpc
+#BSUB -n 10
+#BSUB -R "span[hosts=1]"
+#BSUB -R "rusage[mem=1GB]"
+#BSUB -R "select[model==XeonGold6226R]"
+#BSUB -W 00:30
+
+source SHSCRIPTS/init_02613.sh
+python PYSCRIPTS/dynamic_parallel.py 100 $LSB_JOBINDEX >> OUTPUTS/TIMING/dynamic_times.csv
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   2007.83 sec.
+    Max Memory :                                 557 MB
+    Average Memory :                             517.33 MB
+    Total Requested Memory :                     10240.00 MB
+    Delta Memory :                               9683.00 MB
+    Max Swap :                                   -
+    Max Processes :                              14
+    Max Threads :                                18
+    Run time :                                   225 sec.
+    Turnaround time :                            499 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <OUTPUTS/DYNAMIC_PARALLEL/dynamic_parallel_10.err> for stderr output of this job.
+

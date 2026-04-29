@@ -1,0 +1,16 @@
+Loaded module: cuda/11.8
+
+Total run time for 15 floors
+real	0m38.262s
+user	0m35.961s
+sys	0m0.546s
+
+AVG per floor
+real    0m2.551s
+user    0m2.397s
+sys 0m0.036s
+
+Expected runtime for all 4571
+real 3h14m20.621s
+user 3h2m36.687s
+sys 2m44.556s
