@@ -2,10 +2,8 @@ from os.path import join
 import sys
 
 import numpy as np
+from numba import cuda
 from plotting import plot_temperature_distribution
-import multiprocessing as mp
-from time import perf_counter
-
 
 def load_data(load_dir, bid):
     SIZE = 512
@@ -13,6 +11,31 @@ def load_data(load_dir, bid):
     u[1:-1, 1:-1] = np.load(join(load_dir, f"{bid}_domain.npy"))
     interior_mask = np.load(join(load_dir, f"{bid}_interior.npy"))
     return u, interior_mask
+
+@cuda.jit
+def single_jacobi_kernel(u, u_new, delta_array, interior_mask):
+    # Offset indices to skip the 1-pixel boundary
+    i, j = cuda.grid(2)
+    
+    # Only compute relevant points
+    if interior_mask[i, j]:
+        # Jacobi Stencil
+        u_new[i, j] = 0.25 * (u[i, j-1] + u[i, j+1] + u[i-1, j] + u[i+1, j])
+        delta_array[i, j] = abs(u[i, j] - u_new[i, j])
+    else:
+        u_new[i, j] = u[i, j]
+        delta_array[i, j] = 0.0
+
+@cuda.jit
+def noif_jacobi_kernel(u, u_new, delta_array, interior_mask):
+    # Offset indices to skip the 1-pixel boundary
+    i, j = cuda.grid(2)
+    
+    # Only compute relevant points
+    u_prime = 0.25 * (u[i, j-1] + u[i, j+1] + u[i-1, j] + u[i+1, j]) # wrap around for boundary points, but they won't be used due to the mask
+    u_new[i,j] = interior_mask[i, j]*u_prime + (1 - interior_mask[i, j])*u[i, j]
+    delta_array[i, j] = abs(u[i, j] - u_new[i, j])
+
 
 
 def jacobi(u, interior_mask, max_iter, atol=1e-6):
@@ -29,7 +52,6 @@ def jacobi(u, interior_mask, max_iter, atol=1e-6):
             break
     return u
 
-
 def summary_stats(u, interior_mask):
     u_interior = u[1:-1, 1:-1][interior_mask]
     mean_temp = u_interior.mean()
@@ -43,14 +65,8 @@ def summary_stats(u, interior_mask):
         'pct_below_15': pct_below_15,
     }
 
-def worker_jacobi(tasks):
-    u0, mask, maxit, atol = tasks
-    u = jacobi(u0, mask, maxit, atol)
-    return u
-
 
 if __name__ == '__main__':
-    t_start = perf_counter()
     # Load data
     LOAD_DIR = '/dtu/projects/02613_2025/data/modified_swiss_dwellings/'
     with open(join(LOAD_DIR, 'building_ids.txt'), 'r') as f:
@@ -74,20 +90,16 @@ if __name__ == '__main__':
     MAX_ITER = 20_000
     ABS_TOL = 1e-4
 
-
-    n_proc = int(sys.argv[2]) # Number of processes
-
-    tasks = [(all_u0[i], all_interior_mask[i], MAX_ITER, ABS_TOL) for i in range(N)]
-    with mp.Pool(n_proc) as pool:
-        result = list(pool.imap_unordered(worker_jacobi, tasks, chunksize=1))
-    
-    all_u = np.concatenate(result, axis = 0)
-    print(f"{n_proc}, {perf_counter() - t_start}", flush=True, end = "\n")
+    all_u = np.empty_like(all_u0)
+    for i, (u0, interior_mask) in enumerate(zip(all_u0, all_interior_mask)):
+        u = jacobi(u0, interior_mask, MAX_ITER, ABS_TOL)
+        plot_temperature_distribution(u, building_ids[i])
+        all_u[i] = u
 
 
 # Print summary statistics in CSV format
-    # stat_keys = ['mean_temp', 'std_temp', 'pct_above_18', 'pct_below_15']
-    # print('building_id, ' + ', '.join(stat_keys))  # CSV header
-    # for bid, u, interior_mask in zip(building_ids, all_u, all_interior_mask):
-    #     stats = summary_stats(u, interior_mask)
-    #     print(f"{bid},", ", ".join(str(stats[k]) for k in stat_keys))
+    stat_keys = ['mean_temp', 'std_temp', 'pct_above_18', 'pct_below_15']
+    print('building_id, ' + ', '.join(stat_keys))  # CSV header
+    for bid, u, interior_mask in zip(building_ids, all_u, all_interior_mask):
+        stats = summary_stats(u, interior_mask)
+        print(f"{bid},", ", ".join(str(stats[k]) for k in stat_keys))

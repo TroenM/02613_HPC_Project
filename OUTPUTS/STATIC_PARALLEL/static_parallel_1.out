@@ -2,15 +2,15 @@ No GPU on this node, CUDA module not loaded
 
 ------------------------------------------------------------
 Sender: LSF System <lsfadmin@hpc.dtu.dk>
-Subject: Job 28322289[4]: <static_parallel[1-10]> in cluster <dcc> Done
+Subject: Job 28322289[1]: <static_parallel[1-10]> in cluster <dcc> Done
 
 Job <static_parallel[1-10]> was submitted from host <n-62-12-19> by user <s224363> in cluster <dcc> at Wed Apr 29 10:02:15 2026
-Job was executed on host(s) <10*n-62-12-7>, in queue <hpc>, as user <s224363> in cluster <dcc> at Wed Apr 29 10:14:19 2026
+Job was executed on host(s) <10*n-62-11-52>, in queue <hpc>, as user <s224363> in cluster <dcc> at Wed Apr 29 10:02:16 2026
 </zhome/ce/3/186843> was used as the home directory.
 </zhome/ce/3/186843/Documents/02613_PyHPC/02613_HPC_Project> was used as the working directory.
-Started at Wed Apr 29 10:14:19 2026
-Terminated at Wed Apr 29 10:21:23 2026
-Results reported at Wed Apr 29 10:21:23 2026
+Started at Wed Apr 29 10:02:16 2026
+Terminated at Wed Apr 29 10:31:33 2026
+Results reported at Wed Apr 29 10:31:33 2026
 
 Your job looked like:
 
@@ -37,16 +37,16 @@ Successfully completed.
 
 Resource usage summary:
 
-    CPU time :                                   1545.58 sec.
-    Max Memory :                                 701 MB
-    Average Memory :                             672.80 MB
+    CPU time :                                   1761.42 sec.
+    Max Memory :                                 728 MB
+    Average Memory :                             655.71 MB
     Total Requested Memory :                     10240.00 MB
-    Delta Memory :                               9539.00 MB
+    Delta Memory :                               9512.00 MB
     Max Swap :                                   -
-    Max Processes :                              8
-    Max Threads :                                12
-    Run time :                                   424 sec.
-    Turnaround time :                            1148 sec.
+    Max Processes :                              5
+    Max Threads :                                9
+    Run time :                                   1757 sec.
+    Turnaround time :                            1758 sec.
 
 The output (if any) is above this job summary.
 
@@ -54,5 +54,5 @@ The output (if any) is above this job summary.
 
 PS:
 
-Read file <OUTPUTS/STATIC_PARALLEL/static_parallel_4.err> for stderr output of this job.
+Read file <OUTPUTS/STATIC_PARALLEL/static_parallel_1.err> for stderr output of this job.
 

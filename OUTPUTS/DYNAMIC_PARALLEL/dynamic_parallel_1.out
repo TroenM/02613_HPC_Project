@@ -2,15 +2,15 @@ No GPU on this node, CUDA module not loaded
 
 ------------------------------------------------------------
 Sender: LSF System <lsfadmin@hpc.dtu.dk>
-Subject: Job 28322307[10]: <dynamic_parallel[1-10]> in cluster <dcc> Done
+Subject: Job 28322307[1]: <dynamic_parallel[1-10]> in cluster <dcc> Done
 
 Job <dynamic_parallel[1-10]> was submitted from host <n-62-12-19> by user <s224363> in cluster <dcc> at Wed Apr 29 10:02:25 2026
-Job was executed on host(s) <10*n-62-11-52>, in queue <hpc>, as user <s224363> in cluster <dcc> at Wed Apr 29 10:45:49 2026
+Job was executed on host(s) <10*n-62-12-7>, in queue <hpc>, as user <s224363> in cluster <dcc> at Wed Apr 29 10:26:36 2026
 </zhome/ce/3/186843> was used as the home directory.
 </zhome/ce/3/186843/Documents/02613_PyHPC/02613_HPC_Project> was used as the working directory.
-Started at Wed Apr 29 10:45:49 2026
-Terminated at Wed Apr 29 10:50:42 2026
-Results reported at Wed Apr 29 10:50:42 2026
+Started at Wed Apr 29 10:26:36 2026
+Terminated at Wed Apr 29 10:47:28 2026
+Results reported at Wed Apr 29 10:47:28 2026
 
 Your job looked like:
 
@@ -37,16 +37,16 @@ Successfully completed.
 
 Resource usage summary:
 
-    CPU time :                                   2536.05 sec.
-    Max Memory :                                 592 MB
-    Average Memory :                             547.25 MB
+    CPU time :                                   1255.13 sec.
+    Max Memory :                                 502 MB
+    Average Memory :                             428.82 MB
     Total Requested Memory :                     10240.00 MB
-    Delta Memory :                               9648.00 MB
+    Delta Memory :                               9738.00 MB
     Max Swap :                                   -
-    Max Processes :                              14
-    Max Threads :                                18
-    Run time :                                   293 sec.
-    Turnaround time :                            2897 sec.
+    Max Processes :                              5
+    Max Threads :                                9
+    Run time :                                   1252 sec.
+    Turnaround time :                            2703 sec.
 
 The output (if any) is above this job summary.
 
@@ -54,5 +54,5 @@ The output (if any) is above this job summary.
 
 PS:
 
-Read file <OUTPUTS/DYNAMIC_PARALLEL/dynamic_parallel_10.err> for stderr output of this job.
+Read file <OUTPUTS/DYNAMIC_PARALLEL/dynamic_parallel_1.err> for stderr output of this job.
 
