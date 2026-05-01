@@ -1,0 +1,61 @@
+ARRAY_START_TIME: Fri May  1 17:45:55 CEST 2026
+Job <28335706> is submitted to queue <c02613>.
+Job <28335707> is submitted to queue <hpc>.
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@hpc.dtu.dk>
+Subject: Job 28335705: <full> in cluster <dcc> Done
+
+Job <full> was submitted from host <n-62-12-19> by user <s224363> in cluster <dcc> at Fri May  1 17:45:52 2026
+Job was executed on host(s) <n-62-29-31>, in queue <hpc>, as user <s224363> in cluster <dcc> at Fri May  1 17:45:54 2026
+</zhome/ce/3/186843> was used as the home directory.
+</zhome/ce/3/186843/Documents/02613_PyHPC/02613_HPC_Project> was used as the working directory.
+Started at Fri May  1 17:45:54 2026
+Terminated at Fri May  1 17:45:55 2026
+Results reported at Fri May  1 17:45:55 2026
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#bin/bash.sh
+
+#BSUB -J full
+#BSUB -o ./OUTPUTS/FULL/full.out
+#BSUB -e ./OUTPUTS/FULL/full.err
+
+#BSUB -q hpc
+#BSUB -n 1
+#BSUB -R "span[hosts=1]"
+#BSUB -R "rusage[mem=1GB]"
+
+#BSUB -W 00:10
+
+echo "ARRAY_START_TIME: $(date)"
+bsub < SHSCRIPTS/submit_full_jobs.sh
+bsub < SHSCRIPTS/stopwatch.sh
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   0.65 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     1024.00 MB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              -
+    Max Threads :                                -
+    Run time :                                   1 sec.
+    Turnaround time :                            3 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <./OUTPUTS/FULL/full.err> for stderr output of this job.
+

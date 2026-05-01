@@ -1,0 +1,59 @@
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@hpc.dtu.dk>
+Subject: Job 28336347[1]: <full_jobs[1-2]> in cluster <dcc> Done
+
+Job <full_jobs[1-2]> was submitted from host <n-62-28-34> by user <s224363> in cluster <dcc> at Fri May  1 22:09:09 2026
+Job was executed on host(s) <8*n-62-20-13>, in queue <gpuv100>, as user <s224363> in cluster <dcc> at Fri May  1 22:09:10 2026
+</zhome/ce/3/186843> was used as the home directory.
+</zhome/ce/3/186843/Documents/02613_PyHPC/02613_HPC_Project> was used as the working directory.
+Started at Fri May  1 22:09:10 2026
+Terminated at Fri May  1 22:42:21 2026
+Results reported at Fri May  1 22:42:21 2026
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#bin/bash.sh
+
+#BSUB -J full_jobs[1-2]
+#BSUB -o ./OUTPUTS/FULLGPUV100/full_jobs%I.out
+#BSUB -e ./OUTPUTS/FULLGPUV100/full_jobs%I.err
+
+#BSUB -q gpuv100
+#BSUB -n 8
+#BSUB -R "span[hosts=1]"
+#BSUB -R "rusage[mem=3GB]"
+#BSUB -gpu "num=1:mode=exclusive_process"
+
+#BSUB -W 01:00
+
+source ../init_02613.sh
+
+time python -u PYSCRIPTS/cuda_kernel.py 2286 $LSB_JOBINDEX >> OUTPUTS/full_stats.csv
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   2001.00 sec.
+    Max Memory :                                 9785 MB
+    Average Memory :                             7547.33 MB
+    Total Requested Memory :                     24576.00 MB
+    Delta Memory :                               14791.00 MB
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                9
+    Run time :                                   1991 sec.
+    Turnaround time :                            1992 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <./OUTPUTS/FULLGPUV100/full_jobs1.err> for stderr output of this job.
+
