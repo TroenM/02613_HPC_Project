@@ -42,7 +42,7 @@ def summary_stats(u, interior_mask):
 
 
 if __name__ == '__main__':
-    t_start = perf_counter()
+    # t_start = perf_counter()
     # Load data
     LOAD_DIR = '/dtu/projects/02613_2025/data/modified_swiss_dwellings/'
     with open(join(LOAD_DIR, 'building_ids.txt'), 'r') as f:
@@ -72,8 +72,8 @@ if __name__ == '__main__':
         # plot_temperature_distribution(u.get(), building_ids[i])
         all_u[i] = u
 
-    t_end = perf_counter() - t_start
-    print(f"Total execution time: {t_end:.2f} seconds")
+    # t_end = perf_counter() - t_start
+    # print(f"Total execution time: {t_end:.2f} seconds")
 
 
 # Print summary statistics in CSV format
