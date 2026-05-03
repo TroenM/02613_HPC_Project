@@ -14,4 +14,8 @@
 
 source SHSCRIPTS/init_02613.sh
 
+echo "Original search/replace cupy script:"
 python PYSCRIPTS/cupy_gpu.py 100
+
+echo "Using cp.where to mask:"
+python PYSCRIPTS/cupy_gpu_copy.py 100

@@ -1,0 +1,67 @@
+Original search/replace cupy script:
+Total execution time: 288.52 seconds
+Using cp.where to mask:
+Total execution time: 155.31 seconds
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@hpc.dtu.dk>
+Subject: Job 28339771: <time_cupy> in cluster <dcc> Done
+
+Job <time_cupy> was submitted from host <n-62-12-19> by user <s224408> in cluster <dcc> at Sun May  3 11:46:22 2026
+Job was executed on host(s) <4*n-62-18-13>, in queue <c02613>, as user <s224408> in cluster <dcc> at Sun May  3 11:46:24 2026
+</zhome/91/8/187353> was used as the home directory.
+</zhome/91/8/187353/Documents/02613_PyHPC/02613_HPC_Project> was used as the working directory.
+Started at Sun May  3 11:46:24 2026
+Terminated at Sun May  3 11:53:53 2026
+Results reported at Sun May  3 11:53:53 2026
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/bash
+
+#BSUB -J time_cupy
+#BSUB -o OUTPUTS/time_cupy%J.out
+#BSUB -e OUTPUTS/time_cupy%J.err
+
+#BSUB -q c02613
+#BSUB -n 4
+#BSUB -R "span[hosts=1]"
+#BSUB -R "rusage[mem=1GB]"
+#BSUB -gpu "num=1:mode=exclusive_process"
+
+#BSUB -W 00:30
+
+source SHSCRIPTS/init_02613.sh
+
+echo "Original search/replace cupy script:"
+python PYSCRIPTS/cupy_gpu.py 100
+
+echo "Using cp.where to mask:"
+python PYSCRIPTS/cupy_gpu_copy.py 100
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   446.98 sec.
+    Max Memory :                                 123 MB
+    Average Memory :                             122.40 MB
+    Total Requested Memory :                     4096.00 MB
+    Delta Memory :                               3973.00 MB
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                10
+    Run time :                                   449 sec.
+    Turnaround time :                            451 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <OUTPUTS/time_cupy28339771.err> for stderr output of this job.
+

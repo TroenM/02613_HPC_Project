@@ -14,17 +14,27 @@ def load_data(load_dir, bid):
 
 
 def jacobi(u, interior_mask, max_iter, atol=1e-6):
-    u = cp.copy(u)
+    u = cp.array(u, copy=True)
 
-    for i in range(max_iter):
-        # Compute average of left, right, up and down neighbors, see eq. (1)
-        u_new = 0.25 * (u[1:-1, :-2] + u[1:-1, 2:] + u[:-2, 1:-1] + u[2:, 1:-1])
-        u_new_interior = u_new[interior_mask]
-        delta = cp.abs(u[1:-1, 1:-1][interior_mask] - u_new_interior).max()
-        u[1:-1, 1:-1][interior_mask] = u_new_interior
+    for _ in range(max_iter):
+        u_center = u[1:-1, 1:-1]
 
-        if delta < atol:
+        u_new = 0.25 * (
+            u[1:-1, :-2] +
+            u[1:-1, 2:] +
+            u[:-2, 1:-1] +
+            u[2:, 1:-1]
+        )
+
+        diff = cp.max(
+            cp.where(interior_mask, cp.abs(u_new - u_center), 0.0)
+        )
+
+        u_center[...] = cp.where(interior_mask, u_new, u_center)
+
+        if diff < atol:
             break
+
     return u
 
 def summary_stats(u, interior_mask):
