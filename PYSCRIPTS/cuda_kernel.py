@@ -41,7 +41,7 @@ def noif_jacobi_kernel(u, u_new, interior_mask, delta_array):
 
 
 def run_jacobi(u, u_new, interior_mask, max_iter, atol):
-    tpb = (8, 8)  # threads per block
+    tpb = (16, 16)  # threads per block
     bpg_x = (u.shape[0] + tpb[0] - 1) // tpb[0]
     bpg_y = (u.shape[1] + tpb[1] - 1) // tpb[1]
     bpg = (bpg_x, bpg_y)
@@ -90,7 +90,13 @@ if __name__ == '__main__':
         N = 1
     else:
         N = int(sys.argv[1])
-    building_ids = building_ids[:N]
+    
+    if len(sys.argv) < 3:
+        start_idx = 0
+    else:
+        start_idx = int(sys.argv[2])-1
+
+    building_ids = building_ids[start_idx*N:start_idx*N+N]
 
     # Load floor plans
     all_u0 = np.empty((N, 514, 514))
@@ -109,11 +115,13 @@ if __name__ == '__main__':
         u = run_jacobi(u0, np.empty_like(u0), interior_mask, MAX_ITER, ABS_TOL)
         all_u[i] = u
     
-    print(f"Total execution time: {perf_counter() - t_start:.2f} seconds")
+    # print(f"Total execution time: {perf_counter() - t_start:.2f} seconds")
 
 # Print summary statistics in CSV format
-    # stat_keys = ['mean_temp', 'std_temp', 'pct_above_18', 'pct_below_15']
-    # print('building_id, ' + ', '.join(stat_keys))  # CSV header
-    # for bid, u, interior_mask in zip(building_ids, all_u, all_interior_mask):
-    #     stats = summary_stats(u, interior_mask)
-    #     print(f"{bid},", ", ".join(str(stats[k]) for k in stat_keys))
+    stat_keys = ['mean_temp', 'std_temp', 'pct_above_18', 'pct_below_15']
+    
+    if start_idx == 0:
+        print('building_id, ' + ', '.join(stat_keys))  # CSV header
+    for bid, u, interior_mask in zip(building_ids, all_u, all_interior_mask):
+        stats = summary_stats(u, interior_mask)
+        print(f"{bid},", ", ".join(str(stats[k]) for k in stat_keys))
